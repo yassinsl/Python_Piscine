@@ -1,22 +1,36 @@
 class GardenError(Exception):
-    def __init__(self, age, health, amount):
-        self.age = age;
-        self.health = health;
-        self.amount = _amount
-    def check_status(self):
-        test_Plant(self.health, self.age)
-        test_water(self.amount);
+    def __init__(self, message):
+        super().__init__(message)
+
+
 class PlantError(GardenError):
-    def __init__(self , name, age, health):
-        self._name = name;
-        self._age;
-        self._health = health
-    def test_Plant(health, age):
-        if(age < 0 or health == "bad")
-            raise PlantError("Caught PlantError : The tomato Plant is wilting");j 
+    def __init__(self, name, age, health):
+        self.name = name
+        self.age = age
+        self.health = health
+        super().__init__(f"PlantError: {name} is wilting")
+
+    def test_plant(self):
+        if self.age < 0 or self.health == "bad":
+            raise PlantError(self.name, self.age, self.health)
+
+
 class WaterError(GardenError):
-    def __init__(self, amount)
-        self._amount = _amount;
-def test_water(amount):
-    if(amount < 0)
-        raise PlantError("Caught PlantError : The tomato Plant is wilting");
+    def __init__(self, amount):
+        self.amount = amount
+        super().__init__("WaterError: Not enough water")
+
+    def test_water(self):
+        if self.amount < 0:
+            raise WaterError(self.amount)
+
+
+if __name__ == "__main__":
+    plant = PlantError("Tomatoes", -11, "good")
+
+    try:
+        plant.test_plant()
+        print("Test Plants: successful")
+    except PlantError as e:
+        print(e.name)
+
