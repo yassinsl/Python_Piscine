@@ -10,7 +10,15 @@ def add_item(player_name, item, quantity, category, rarity, value):
         }
     }
 
-
+def print_analyse_player(inventories, to_player):
+    gold= 0
+    item_count = 0
+    for key , data in inventories[player].items():
+        gold+= data['value']
+        item_count+=data['quantity'];
+    print(f"Most valuable player: {to_player} = ({gold}gold)")
+    print(f"Most Items: {to_player} = ({items}gold)")
+        
 def transfer_item(inventories, from_player):
     if from_player not in inventories:
         print("Player not found")
@@ -35,21 +43,19 @@ def transfer_item(inventories, from_player):
         print("Not enough quantity to transfer")
         return
 
-    # remove from sender
     inventories[from_player][item]["quantity"] -= qty
 
-    # add to receiver
     if item not in inventories[to_player]:
         inventories[to_player][item] = inventories[from_player][item].copy()
         inventories[to_player][item]["quantity"] = qty
     else:
         inventories[to_player][item]["quantity"] += qty
 
-    # delete item if sender hits 0
     if inventories[from_player][item]["quantity"] == 0:
         del inventories[from_player][item]
 
     print("Transfer success.")
+    print_analyse_player(inventories, to_player);
 
 
 def category_summary(inventories, player):
@@ -60,7 +66,6 @@ def category_summary(inventories, player):
         if cat not in seen:
             seen.append(cat)
 
-    # print each category with total quantity in that category
     for i, cat in enumerate(seen):
         total = 0
         for _, data in inventories[player].items():
