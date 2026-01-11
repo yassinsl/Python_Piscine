@@ -9,7 +9,7 @@ def take_input():
         stderr.write("Error: ID must start with ARCH_\n")
         exit(1)
     suffix = archive_id[len("ARCH_"):]
-    if (ch.isdigit() for ch in suffix):
+    if not any(ch.isdigit() for ch in suffix):
         stderr.write("Error: archive_id must NOT contain numbers\n")
         exit(1)
     stdout.write("Enter status report: ")
