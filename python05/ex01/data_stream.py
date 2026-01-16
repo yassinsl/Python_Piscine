@@ -15,40 +15,41 @@ class SensorStream(DataStreams):
     def __init__(self, stream_id):
         self._stream_id = stream_id;
         self._type = "Enviremmental Data"
-    #TODO: Work in Processing sensor Stream
-    def filter_data(self, data_batch: List[Any], critfrom typing import Any, Dict, Optional, List, Union
+    def ffrom typing import Any, Dict, Optional, List, Union
 
-def parsing_criteria(criteria: str) -> Dict[str, Any]:
-    if not isinstance(criteria, str) or not criteria.strip():
-        raise ValueError("Error: criteria must be a non-empty string")
+    def parsing_criteria(criteria: str) -> Dict[str, Any]:
+        if not isinstance(criteria, str) or not criteria.strip():
+         raise ValueError("Error: criteria must be a non-empty string")
 
-    c = criteria.strip().replace(" ", "")
+        c = criteria.strip().replace(" ", "")
 
-    fields = ("temp", "humidity", "pressure")
-    field = next((f for f in fields if c.startswith(f)), None)
-    if field is None:
-        raise ValueError(f"Error: Unknown field in criteria: {criteria!r}")
+        fields = ("temp", "humidity", "pressure")
+        field = next((f for f in fields if c.startswith(f)), None)
+        if field is None:
+            raise ValueError(f"Error: Unknown field in criteria: {criteria!r}")
 
-    rest = c[len(field):]
-    if not rest:
-        raise ValueError(f"Error: Missing operator/value in criteria: {criteria!r}")
+        rest = c[len(field):]
+        if not rest:
+            raise ValueError(f"Error: Missing operator/value in criteria: {criteria!r}")
 
-    ops = (">=", "<=", "==", ">", "<")
-    op = next((o for o in ops if rest.startswith(o)), None)
-    if op is None:
-        raise ValueError(f"Error: Invalid operator in criteria: {criteria!r}")
+        ops = (">=", "<=", "==", ">", "<")
+     op = next((o for o in ops if rest.startswith(o)), None)
+        if op is None:
+          raise ValueError(f"Error: Invalid operator in criteria: {criteria!r}")
 
-    value_str = rest[len(op):]
-    if not value_str:
-        raise ValueError(f"Error: Missing numeric value in criteria: {criteria!r}")
-    try:
-        value = float(value_str)
-    except ValueError:
-        raise ValueError(f"Error: Value is not a number in criteria: {criteria!r}")
+        value_str = rest[len(op):]
+        if not value_str:
+            raise ValueError(f"Error: Missing numeric value in criteria: {criteria!r}")
 
-    return {"field": field, "op": op, "value": value}
-eria Optional[str] = None)-> List[Any]:
+        try:
+            value = float(value_str)
+        except ValueError:
+            raise ValueError(f"Error: Value is not a number in criteria: {criteria!r}")
+
+        return {"field": field, "op": op, "value": value}
+    def filter_data(self, data_batch: List[Any], criteria Optional[str] = None)-> List[Any]:
         parse = {};
+        #criteria == None return detect list []
         if not isinstance(data_batch, (list, tuple)):
             raise ValueError("Error: Not Validite data")
         elif not all(isinstance(x, (int, float)) for x in data_batch):
@@ -56,6 +57,7 @@ eria Optional[str] = None)-> List[Any]:
         if not criteria: 
             return data_batch;
         parse = parsing_critereia(criteria);
+        #more hard code 
 
             
     def process_batch(self, data_batch: List[Any])
